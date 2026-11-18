@@ -53,3 +53,16 @@ Une grosse actu (patch, annonce officielle) passe toujours avant le thème prév
   sources: [ { label: "Média : sujet", href: "https://…" } ]
 }
 ```
+
+## Planning : semaine de lancement (19-24 novembre 2026)
+
+Sujets prévus ; une grosse actu passe toujours devant. Aucun fait inventé : chaque info vient des recherches du jour.
+
+| Date | Thème | Sujet prévu |
+|---|---|---|
+| Jeu 19 | Jour J | « C'est sorti » : ce qu'il faut savoir pour lancer sa partie (mise à jour du jour J, heure de dispo, premiers réglages conseillés) |
+| Ven 20 | Communauté | Premiers problèmes signalés et solutions vérifiées (serveurs, bugs, performances), premières découvertes confirmées |
+| Sam 21 | Défi du week-end | Défi à suivre avec les compteurs du site + astuces rapides des premières heures |
+| Dim 22 | Récap | Récap de la semaine de lancement : chiffres officiels, patchs, meilleures astuces |
+| Lun 23 | Guide | Guide « Bien débuter » (remplit le guide prévu sur le site) |
+| Mar 24 | Actus | Actus de la semaine : patchs, annonces Rockstar |

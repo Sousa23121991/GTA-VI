@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Compagnon GTA VI</title>
+<meta name="description" content="Site de fans pour GTA VI : journal quotidien, checklist de lancement, compteurs de progression personnels et guides sur PS5 et Xbox Series.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Schibsted+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #d6f0ec;
+    --panel: #eefaf8;
+    --ink: #10294a;
+    --muted: #46607c;
+    --line-soft: rgba(16, 41, 74, .18);
+    --pink: #e8456f;
+    --sun: #ffc233;
+    --sign: #10294a;
+    --sign-edge: #10294a;
+    --bar-bg: rgba(16, 41, 74, .16);
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0b1830;
+      --panel: #12254a;
+      --ink: #e8f5f3;
+      --muted: #9db5cc;
+      --line-soft: rgba(232, 245, 243, .18);
+      --pink: #ff6b93;
+      --sun: #ffd060;
+      --sign: #071126;
+      --sign-edge: #ffd060;
+      --bar-bg: rgba(232, 245, 243, .18);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b1830;
+    --panel: #12254a;
+    --ink: #e8f5f3;
+    --muted: #9db5cc;
+    --line-soft: rgba(232, 245, 243, .18);
+    --pink: #ff6b93;
+    --sun: #ffd060;
+    --sign: #071126;
+    --sign-edge: #ffd060;
+    --bar-bg: rgba(232, 245, 243, .18);
+    color-scheme: dark;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: inherit; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Schibsted Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 0 1.25rem; }
+
+  .top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 0 0; }
+  .wordmark { font-family: "Shrikhand", Georgia, serif; font-size: 1.2rem; color: var(--ink); text-decoration: none; }
+
+  .btn {
+    font: inherit; font-weight: 700; cursor: pointer;
+    border: 2px solid var(--ink); background: var(--ink); color: var(--bg);
+    padding: .5rem 1.1rem; border-radius: 999px;
+  }
+  .btn.ghost { background: transparent; color: var(--ink); }
+  .btn.small { padding: .3rem .8rem; font-size: .9rem; }
+  a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+    outline: 3px solid var(--pink); outline-offset: 2px;
+  }
+  input[type="checkbox"]:focus-visible { outline: 3px solid var(--pink); outline-offset: 2px; }
+
+  h1 {
+    font-family: "Shrikhand", Georgia, serif; font-weight: 400;
+    font-size: clamp(2.1rem, 7vw, 3.6rem); line-height: 1.08;
+    max-width: 16ch; margin: 1.75rem 0 .9rem;
+  }
+  .lead { max-width: 54ch; color: var(--muted); margin: 0; }
+
+  /* Enseigne de motel */
+  .sign {
+    position: relative; text-align: center; color: #fff;
+    margin: 2rem 0 .75rem; padding: 2.1rem 1rem 1.75rem;
+    background: var(--sign); border: 4px solid var(--sign-edge);
+    border-radius: 22px; box-shadow: 6px 6px 0 var(--pink);
+  }
+  .sign::before, .sign::after {
+    content: ""; position: absolute; left: 16px; right: 16px; height: 8px;
+    background: radial-gradient(circle, var(--sun) 45%, transparent 52%) 0 0 / 20px 8px repeat-x;
+  }
+  .sign::before { top: 9px; }
+  .sign::after { bottom: 9px; }
+  .sign-top { margin: 0 0 1rem; font-weight: 500; color: #cfe0f0; }
+  .sign-foot { margin: 1rem 0 0; font-size: .95rem; color: #cfe0f0; }
+  .countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; max-width: 34rem; margin: 0 auto; }
+  .cell { border: 2px solid rgba(255, 255, 255, .28); border-radius: 12px; padding: .6rem .2rem .5rem; }
+  .num { display: block; font-family: "Shrikhand", Georgia, serif; font-size: clamp(1.9rem, 9vw, 3.3rem); line-height: 1.1; color: var(--sun); text-shadow: 0 0 14px rgba(255, 194, 51, .55); }
+  .unit { display: block; font-size: .85rem; color: #cfe0f0; }
+  .open { font-family: "Shrikhand", Georgia, serif; font-size: clamp(2.4rem, 11vw, 4.2rem); line-height: 1.1; margin: .2rem 0; color: #ffd0dc; text-shadow: 0 0 8px var(--pink), 0 0 26px var(--pink); }
+  .lit { animation: neon-on 1.6s ease-out 1 both; }
+  @keyframes neon-on {
+    0% { opacity: .12; } 8% { opacity: 1; } 14% { opacity: .25; } 22% { opacity: 1; }
+    30% { opacity: .55; } 40%, 100% { opacity: 1; }
+  }
+  .note { font-size: .88rem; color: var(--muted); max-width: 60ch; margin: 1rem 0 2.75rem; }
+
+  .block { margin: 0 0 3rem; }
+  h2 { font-family: "Shrikhand", Georgia, serif; font-weight: 400; font-size: 1.65rem; line-height: 1.2; margin: 0 0 .4rem; }
+  .sub { color: var(--muted); margin: 0 0 1rem; max-width: 56ch; }
+  .panel { border: 2px solid var(--ink); border-radius: 8px; background: var(--panel); padding: 1rem 1.1rem 1.1rem; }
+  .cols { display: grid; gap: 2.5rem; margin-bottom: 3rem; }
+  @media (min-width: 820px) { .cols { grid-template-columns: 1fr 1fr; align-items: start; } }
+  .cols .block { margin: 0; }
+
+  /* Journal quotidien */
+  .post-head { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; margin: 0 0 .5rem; }
+  .tag { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; background: var(--pink); color: #fff; border-radius: 999px; padding: .1rem .6rem; }
+  .date { font-size: .9rem; color: var(--muted); }
+  .post h3 { font-size: 1.35rem; line-height: 1.25; margin: 0 0 .5rem; }
+  .post .summary { margin: 0 0 1rem; font-weight: 500; }
+  .post-body { max-width: 62ch; }
+  .post-body p { margin: 0 0 .9rem; }
+  .post-body h4 { font-size: 1.05rem; margin: 1.3rem 0 .4rem; }
+  .post-body ul { margin: 0 0 .9rem; padding-left: 1.2rem; }
+  .post-body li { margin: 0 0 .35rem; }
+  .sources { font-size: .88rem; color: var(--muted); }
+  .sources a { color: var(--muted); }
+  .archive { margin-top: 1.25rem; }
+  .archive details { border-top: 2px solid var(--ink); padding: .8rem 0; }
+  .archive details:last-child { border-bottom: 2px solid var(--ink); }
+  .archive summary { cursor: pointer; font-weight: 700; list-style-position: outside; }
+  .archive summary .date { font-weight: 400; margin-left: .4rem; }
+  .archive .post-body { margin-top: .75rem; }
+
+  ul.plain { list-style: none; margin: 0; padding: 0; }
+  .task { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .6rem 0; border-top: 1px solid var(--line-soft); }
+  .task:first-child { border-top: 0; }
+  .task label { display: flex; align-items: flex-start; gap: .7rem; cursor: pointer; flex: 1; }
+  .task input[type="checkbox"] { width: 1.3rem; height: 1.3rem; margin: .12rem 0 0; accent-color: var(--pink); flex: none; }
+  .task.is-done span { text-decoration: line-through; color: var(--muted); }
+  .icon { font: inherit; font-size: 1.3rem; line-height: 1; border: 0; background: transparent; color: var(--muted); cursor: pointer; padding: .25rem .5rem; border-radius: 6px; }
+  .icon:hover { color: var(--ink); }
+  .meta-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: .9rem; flex-wrap: wrap; }
+  .meta-row p { margin: 0; font-weight: 700; }
+
+  form.add { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1rem; }
+  input[type="text"], input[type="number"] {
+    font: inherit; color: var(--ink); background: var(--bg);
+    border: 2px solid var(--ink); border-radius: 8px; padding: .5rem .7rem; min-width: 0;
+  }
+  input.grow { flex: 1 1 10rem; }
+  input.target { width: 6.5rem; }
+  .sr { position: absolute; left: -9999px; }
+  .chips { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .9rem; }
+  .chip { font: inherit; font-size: .9rem; cursor: pointer; color: var(--ink); background: transparent; border: 2px dashed var(--ink); border-radius: 999px; padding: .2rem .75rem; }
+
+  .counter { padding: .9rem 0; border-top: 1px solid var(--line-soft); }
+  .counter:first-child { border-top: 0; padding-top: .2rem; }
+  .counter-head { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+  .counter-name { font-weight: 700; overflow-wrap: anywhere; }
+  .bar { height: 10px; margin: .5rem 0 .7rem; border-radius: 999px; background: var(--bar-bg); overflow: hidden; }
+  .fill { height: 100%; background: var(--pink); border-radius: 999px; transition: width .2s ease; }
+  .counter-ctl { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+  .value { font-weight: 700; min-width: 5.5rem; }
+  .empty { color: var(--muted); margin: 0; }
+
+  dl { margin: 0; border-bottom: 2px solid var(--ink); }
+  .row { display: grid; grid-template-columns: 8.5rem 1fr; gap: 1rem; padding: .75rem 0; border-top: 2px solid var(--ink); }
+  dt { font-weight: 700; }
+  dd { margin: 0; }
+
+  .guide { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .9rem 0; border-top: 2px solid var(--ink); }
+  .guide:last-child { border-bottom: 2px solid var(--ink); }
+  .guide h3 { font-size: 1.1rem; margin: 0; }
+  .guide p { margin: .1rem 0 0; color: var(--muted); font-size: .98rem; }
+  .guide a { color: var(--ink); }
+  .soon { flex: none; font-size: .85rem; font-weight: 700; border: 2px solid var(--ink); border-radius: 999px; padding: .1rem .7rem; }
+
+  .gear-item { display: block; padding: .9rem 0; border-top: 2px solid var(--ink); color: var(--ink); text-decoration: none; }
+  .gear-item:last-child { border-bottom: 2px solid var(--ink); }
+  .gear-item strong { display: block; text-decoration: underline; text-underline-offset: 3px; }
+  .gear-item span { color: var(--muted); font-size: .98rem; }
+
+  footer { border-top: 2px solid var(--ink); padding: 1.25rem 0 2.5rem; color: var(--muted); font-size: .88rem; }
+  footer p { margin: 0 0 .5rem; max-width: 70ch; }
+
+  .toast {
+    position: fixed; left: 0; right: 0; bottom: 0; text-align: center; font-weight: 700;
+    padding: .75rem 1rem calc(.75rem + env(safe-area-inset-bottom, 0px));
+    background: var(--ink); color: var(--bg);
+    transform: translateY(110%); transition: transform .2s ease;
+  }
+  .toast.show { transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lit { animation: none; }
+    .fill, .toast { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="wordmark" href="#top">Compagnon GTA VI</a>
+    <button class="btn ghost small" id="share" type="button">Partager</button>
+  </header>
+
+  <main id="top">
+    <h1>Tout pour bien démarrer dans GTA VI</h1>
+    <p class="lead">Un article chaque jour, une checklist pour le jour J, des compteurs pour suivre ta progression et des guides publiés au fil du jeu. Tout reste dans ton navigateur&nbsp;: pas de compte, pas d’inscription.</p>
+
+    <section class="sign" aria-label="Compte à rebours avant la sortie">
+      <p class="sign-top lit" id="sign-top">Sortie le jeudi 19 novembre 2026</p>
+      <div id="sign-main" class="lit">
+        <div class="countdown" id="countdown" role="timer">
+          <div class="cell"><span class="num" id="cd-d">0</span><span class="unit">jours</span></div>
+          <div class="cell"><span class="num" id="cd-h">00</span><span class="unit">heures</span></div>
+          <div class="cell"><span class="num" id="cd-m">00</span><span class="unit">minutes</span></div>
+          <div class="cell"><span class="num" id="cd-s">00</span><span class="unit">secondes</span></div>
+        </div>
+      </div>
+      <p class="sign-foot">Sur PS5 et Xbox Series X|S. Version PC non annoncée.</p>
+    </section>
+    <p class="note" id="cd-note">Le compte à rebours vise minuit, à l’heure de ton appareil. L’heure exacte de disponibilité peut varier selon ta console et ta région.</p>
+
+    <section class="block" id="journal" aria-labelledby="h-journal">
+      <h2 id="h-journal">Le journal du jour</h2>
+      <p class="sub">Un nouvel article chaque matin&nbsp;: actus vérifiées, astuces et guides.</p>
+      <article class="panel post" id="latest"></article>
+      <div class="archive" id="archive"></div>
+    </section>
+
+    <div class="cols">
+      <section class="block" aria-labelledby="h-check">
+        <h2 id="h-check">Checklist de lancement</h2>
+        <p class="sub">Les bases à régler avant d’appuyer sur Start. Ajoute les tiennes.</p>
+        <div class="panel">
+          <ul class="plain" id="tasks"></ul>
+          <div class="meta-row">
+            <p id="task-progress" aria-live="polite"></p>
+            <button class="btn ghost small" id="uncheck" type="button">Tout décocher</button>
+          </div>
+          <form class="add" id="task-form">
+            <label for="task-input" class="sr">Nouvelle tâche</label>
+            <input class="grow" id="task-input" type="text" maxlength="80" placeholder="Ajouter une tâche" autocomplete="off">
+            <button class="btn" type="submit">Ajouter</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="block" aria-labelledby="h-count">
+        <h2 id="h-count">Mes compteurs</h2>
+        <p class="sub">Suis les missions, les objets à trouver ou n’importe quel objectif. Tout est enregistré sur cet appareil.</p>
+        <div class="panel">
+          <div id="counters"></div>
+          <form class="add" id="counter-form">
+            <label for="counter-name" class="sr">Nom du compteur</label>
+            <input class="grow" id="counter-name" type="text" maxlength="60" placeholder="Nom du compteur" autocomplete="off">
+            <label for="counter-target" class="sr">Objectif</label>
+            <input class="target" id="counter-target" type="number" min="1" max="9999" value="100" inputmode="numeric">
+            <button class="btn" type="submit">Créer</button>
+          </form>
+          <div class="chips" id="chips"></div>
+        </div>
+      </section>
+    </div>
+
+    <section class="block" aria-labelledby="h-key">
+      <h2 id="h-key">L’essentiel avant de lancer</h2>
+      <dl>
+        <div class="row"><dt>Sortie</dt><dd>Jeudi 19 novembre 2026</dd></div>
+        <div class="row"><dt>Plateformes</dt><dd>PS5 et Xbox Series X|S</dd></div>
+        <div class="row"><dt>PC</dt><dd>Aucune version annoncée à ce jour</dd></div>
+        <div class="row"><dt>Espace requis</dt><dd>Prévoir au moins 212&nbsp;Go libres</dd></div>
+        <div class="row"><dt>Cadre</dt><dd>L’État de Leonida, avec Vice City</dd></div>
+        <div class="row"><dt>Protagonistes</dt><dd>Jason et Lucia</dd></div>
+      </dl>
+    </section>
+
+    <section class="block" aria-labelledby="h-guides">
+      <h2 id="h-guides">Guides</h2>
+      <p class="sub">Publiés au fur et à mesure que le jeu est exploré.</p>
+      <div id="guides"></div>
+    </section>
+
+    <section class="block" id="gear-block" aria-labelledby="h-gear" hidden>
+      <h2 id="h-gear">Matériel pour jouer</h2>
+      <p class="sub">Certains liens sont affiliés&nbsp;: ils peuvent générer une commission, sans surcoût pour toi.</p>
+      <div id="gear"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Site de fans non officiel. Il n’est ni affilié ni approuvé par Rockstar Games ou Take-Two Interactive. Grand Theft Auto est une marque de Take-Two Interactive.</p>
+    <p id="verified">Informations vérifiées le 18 novembre 2026.</p>
+  </footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ------------------------------------------------------------------
+     JOURNAL : un article par jour, le PLUS RÉCENT EN PREMIER.
+     body : liste de blocs { p: "texte" } | { h: "intertitre" } | { ul: ["…", "…"] }
+     sources : [{ label, href }] pour chaque fait d’actualité.
+  ------------------------------------------------------------------ */
+  var POSTS = [
+    {
+      id: "2026-11-18-veille-de-sortie",
+      date: "2026-11-18",
+      tag: "J-1",
+      title: "Veille de sortie : les 5 choses à faire ce soir",
+      summary: "GTA VI sort demain. Si tu veux lancer la partie dès minuit sans mauvaise surprise, voici l’essentiel à vérifier ce soir.",
+      body: [
+        { h: "1. Vérifier que le préchargement est terminé" },
+        { p: "Le préchargement est ouvert depuis le 10 novembre sur PS5 et Xbox Series X|S. Va dans ta bibliothèque et regarde si le téléchargement est complet. S’il reste encore beaucoup de données, laisse la console en mode repos cette nuit, connectée à Internet." },
+        { h: "2. Garder au moins 212 Go libres" },
+        { p: "Sony indique un minimum de 212 Go d’espace de stockage. Sur Xbox, certains relevés annoncent un peu plus. Le plus sûr est de garder une marge de quelques dizaines de gigas pour la mise à jour du jour J." },
+        { ul: [
+          "PS5 : tu peux ajouter un SSD M.2 NVMe compatible.",
+          "Xbox Series X|S : tu peux utiliser une carte d’extension de stockage dédiée.",
+          "Sinon, supprime les jeux que tu n’as pas lancés depuis des mois. Tes sauvegardes restent dans le cloud si tu es abonné."
+        ] },
+        { h: "3. Mettre à jour la console et les manettes" },
+        { p: "Fais les mises à jour système ce soir. Une mise à jour obligatoire au moment de lancer le jeu, c’est 10 minutes perdues au pire moment." },
+        { h: "4. Activer le mode repos avec téléchargements" },
+        { p: "Sur PS5, vérifie que la console reste connectée à Internet en mode repos. Sur Xbox, choisis le mode d’alimentation qui permet les mises à jour automatiques. Le patch du jour J s’installera alors tout seul." },
+        { h: "5. Préparer ta session" },
+        { p: "Charge les manettes, garde le casque à portée de main et coupe les notifications. Les premières heures d’un GTA posent les personnages et l’histoire&nbsp;: c’est le bon moment pour ne pas être dérangé." },
+        { p: "Tu peux cocher tout ça dans la checklist juste en dessous. Demain matin&nbsp;: le récap du lancement et les premières infos utiles." }
+      ],
+      sources: [
+        { label: "Newsweek : vérifier sa console avant la sortie", href: "https://www.newsweek.com/entertainment/gta-6-console-storage-download-size-launch-12719581" },
+        { label: "GameLuster : préchargement et taille du téléchargement", href: "https://gameluster.com/gta-6-212gb-download-size-preload/" }
+      ]
+    }
+  ];
+
+  /* ------------------------------------------------------------------
+     CONFIG
+     - guides : mets un "href" (ex. "#post-<id>") quand un guide est publié.
+     - affiliates : la section « Matériel » n’apparaît que si la liste n’est pas vide.
+  ------------------------------------------------------------------ */
+  var CONFIG = {
+    storageKey: "compagnon-gta6-v1",
+    release: [2026, 10, 19, 0, 0, 0], // année, mois (0 = janvier), jour, h, min, s : heure locale
+    guides: [
+      { title: "Bien débuter", text: "Ce qu’il faut savoir avant les premières heures de jeu.", href: "" },
+      { title: "Argent et progression", text: "Avancer sans perdre de temps.", href: "" },
+      { title: "Cartes et lieux", text: "Les lieux à repérer à Vice City et dans l’État de Leonida.", href: "" },
+      { title: "Performances et réglages", text: "Réglages conseillés sur PS5 et Xbox Series.", href: "" }
+    ],
+    affiliates: []
+  };
+
+  var DEFAULT_TASKS = [
+    { id: "t-preload", text: "Précharger le jeu si tu l’as acheté en numérique" },
+    { id: "t-space", text: "Garder au moins 212 Go libres sur ta console" },
+    { id: "t-update", text: "Mettre à jour la console et les manettes" },
+    { id: "t-account", text: "Vérifier que ton compte PlayStation ou Xbox est connecté" },
+    { id: "t-patch", text: "Installer la mise à jour du jour J si elle est proposée" },
+    { id: "t-charge", text: "Charger les manettes et prévoir de quoi tenir longtemps" }
+  ];
+  var CHIPS = ["Missions principales", "Objets à trouver", "Défis"];
+
+  /* ---------- état + stockage ---------- */
+  var state = load();
+
+  function load() {
+    var empty = { done: {}, custom: [], counters: [] };
+    try {
+      var raw = localStorage.getItem(CONFIG.storageKey);
+      if (!raw) return empty;
+      var s = JSON.parse(raw);
+      return {
+        done: s && typeof s.done === "object" && s.done ? s.done : {},
+        custom: Array.isArray(s && s.custom) ? s.custom : [],
+        counters: Array.isArray(s && s.counters) ? s.counters : []
+      };
+    } catch (e) { return empty; }
+  }
+  function save() {
+    try { localStorage.setItem(CONFIG.storageKey, JSON.stringify(state)); } catch (e) { /* stockage indisponible */ }
+  }
+
+  /* ---------- utilitaires ---------- */
+  function $(id) { return document.getElementById(id); }
+  function el(tag, attrs, kids) {
+    var n = document.createElement(tag);
+    Object.keys(attrs || {}).forEach(function (k) {
+      if (k === "text") n.textContent = attrs[k];
+      else if (k === "class") n.className = attrs[k];
+      else n.setAttribute(k, attrs[k]);
+    });
+    (kids || []).forEach(function (c) { n.appendChild(c); });
+    return n;
+  }
+  function uid(p) { return p + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function pad(n) { return n < 10 ? "0" + n : String(n); }
+  var toastTimer;
+  function toast(msg) {
+    var t = $("toast"); t.textContent = msg; t.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove("show"); }, 2200);
+  }
+  var MONTHS = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
+  function frDate(iso) {
+    var p = iso.split("-");
+    return parseInt(p[2], 10) + " " + MONTHS[parseInt(p[1], 10) - 1] + " " + p[0];
+  }
+
+  /* ---------- journal ---------- */
+  function buildBody(post) {
+    var box = el("div", { class: "post-body" });
+    (post.body || []).forEach(function (b) {
+      if (b.h) box.appendChild(el("h4", { text: b.h }));
+      else if (b.ul) box.appendChild(el("ul", {}, b.ul.map(function (t) { return el("li", { text: t }); })));
+      else if (b.p) box.appendChild(el("p", { text: b.p.replace(/&nbsp;/g, " ") }));
+    });
+    if (post.sources && post.sources.length) {
+      var src = el("p", { class: "sources" }, [document.createTextNode("Sources : ")]);
+      post.sources.forEach(function (s, i) {
+        if (i) src.appendChild(document.createTextNode(" · "));
+        src.appendChild(el("a", { href: s.href, target: "_blank", rel: "noopener noreferrer", text: s.label }));
+      });
+      box.appendChild(src);
+    }
+    return box;
+  }
+  function renderJournal() {
+    var latest = $("latest");
+    if (!POSTS.length) { latest.appendChild(el("p", { class: "empty", text: "Premier article très bientôt." })); return; }
+    var p = POSTS[0];
+    latest.id = "post-" + p.id;
+    latest.appendChild(el("div", { class: "post-head" }, [el("span", { class: "tag", text: p.tag }), el("span", { class: "date", text: frDate(p.date) })]));
+    latest.appendChild(el("h3", { text: p.title }));
+    latest.appendChild(el("p", { class: "summary", text: p.summary }));
+    latest.appendChild(buildBody(p));
+    var archive = $("archive");
+    POSTS.slice(1).forEach(function (o) {
+      var sum = el("summary", {}, [document.createTextNode(o.title), el("span", { class: "date", text: frDate(o.date) })]);
+      var d = el("details", { id: "post-" + o.id, class: "post" }, [sum, el("p", { class: "summary", text: o.summary }), buildBody(o)]);
+      archive.appendChild(d);
+    });
+    if (location.hash) {
+      var target = document.getElementById(location.hash.slice(1));
+      if (target && target.tagName === "DETAILS") target.open = true;
+    }
+  }
+
+  /* ---------- compte à rebours ---------- */
+  var target = new Date(CONFIG.release[0], CONFIG.release[1], CONFIG.release[2], CONFIG.release[3], CONFIG.release[4], CONFIG.release[5]);
+  var timer;
+  function tick() {
+    var diff = target.getTime() - Date.now();
+    if (diff <= 0) { showOpen(); return; }
+    var s = Math.floor(diff / 1000);
+    $("cd-d").textContent = Math.floor(s / 86400);
+    $("cd-h").textContent = pad(Math.floor((s % 86400) / 3600));
+    $("cd-m").textContent = pad(Math.floor((s % 3600) / 60));
+    $("cd-s").textContent = pad(s % 60);
+  }
+  function showOpen() {
+    clearInterval(timer);
+    var main = $("sign-main");
+    main.textContent = "";
+    main.appendChild(el("p", { class: "open", text: "C’est ouvert" }));
+    $("sign-top").textContent = "Disponible depuis le jeudi 19 novembre 2026";
+    $("cd-note").textContent = "GTA VI est disponible sur PS5 et Xbox Series X|S. Bon jeu !";
+  }
+  tick();
+  if (target.getTime() > Date.now()) timer = setInterval(tick, 1000);
+
+  /* ---------- checklist ---------- */
+  function allTasks() {
+    return DEFAULT_TASKS.map(function (t) { return { id: t.id, text: t.text, custom: false }; })
+      .concat(state.custom.map(function (t) { return { id: t.id, text: t.text, custom: true }; }));
+  }
+  function updateProgress() {
+    var tasks = allTasks(), done = 0;
+    tasks.forEach(function (t) { if (state.done[t.id]) done++; });
+    $("task-progress").textContent = done + " sur " + tasks.length + (done > 1 ? " terminées" : " terminée");
+  }
+  function renderTasks() {
+    var ul = $("tasks");
+    ul.textContent = "";
+    allTasks().forEach(function (t) {
+      var li = el("li", { class: "task" + (state.done[t.id] ? " is-done" : "") });
+      var cb = el("input", { type: "checkbox" });
+      cb.checked = !!state.done[t.id];
+      cb.addEventListener("change", function () {
+        state.done[t.id] = cb.checked;
+        li.classList.toggle("is-done", cb.checked);
+        save(); updateProgress();
+      });
+      li.appendChild(el("label", {}, [cb, el("span", { text: t.text })]));
+      if (t.custom) {
+        var rm = el("button", { type: "button", class: "icon", "aria-label": "Supprimer « " + t.text + " »", text: "×" });
+        rm.addEventListener("click", function () {
+          state.custom = state.custom.filter(function (c) { return c.id !== t.id; });
+          delete state.done[t.id];
+          save(); renderTasks();
+        });
+        li.appendChild(rm);
+      }
+      ul.appendChild(li);
+    });
+    updateProgress();
+  }
+  $("task-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var input = $("task-input"), text = input.value.trim();
+    if (!text) { toast("Écris une tâche avant d’ajouter."); input.focus(); return; }
+    state.custom.push({ id: uid("c-"), text: text.slice(0, 80) });
+    input.value = "";
+    save(); renderTasks(); input.focus();
+  });
+  $("uncheck").addEventListener("click", function () { state.done = {}; save(); renderTasks(); });
+
+  /* ---------- compteurs ---------- */
+  function buildCounter(c) {
+    var wrap = el("div", { class: "counter" });
+    var del = el("button", { type: "button", class: "icon", "aria-label": "Supprimer le compteur « " + c.name + " »", text: "×" });
+    var fill = el("div", { class: "fill" });
+    var bar = el("div", { class: "bar", role: "progressbar", "aria-label": c.name, "aria-valuemin": "0", "aria-valuemax": String(c.target) }, [fill]);
+    var value = el("span", { class: "value" });
+    function update() {
+      c.value = Math.max(0, Math.min(c.target, c.value));
+      value.textContent = c.value + " / " + c.target;
+      fill.style.width = (c.target ? Math.round((c.value / c.target) * 100) : 0) + "%";
+      bar.setAttribute("aria-valuenow", String(c.value));
+    }
+    function step(n) { return function () { c.value += n; update(); save(); }; }
+    var minus = el("button", { type: "button", class: "btn ghost small", "aria-label": "Retirer 1", text: "−1" });
+    var plus = el("button", { type: "button", class: "btn small", "aria-label": "Ajouter 1", text: "+1" });
+    var plus10 = el("button", { type: "button", class: "btn ghost small", "aria-label": "Ajouter 10", text: "+10" });
+    minus.addEventListener("click", step(-1));
+    plus.addEventListener("click", step(1));
+    plus10.addEventListener("click", step(10));
+    del.addEventListener("click", function () {
+      state.counters = state.counters.filter(function (x) { return x.id !== c.id; });
+      save(); renderCounters();
+    });
+    wrap.appendChild(el("div", { class: "counter-head" }, [el("span", { class: "counter-name", text: c.name }), del]));
+    wrap.appendChild(bar);
+    wrap.appendChild(el("div", { class: "counter-ctl" }, [minus, value, plus, plus10]));
+    update();
+    return wrap;
+  }
+  function renderCounters() {
+    var box = $("counters");
+    box.textContent = "";
+    if (!state.counters.length) {
+      box.appendChild(el("p", { class: "empty", text: "Aucun compteur pour l’instant. Crée-en un ci-dessous ou choisis une idée." }));
+      return;
+    }
+    state.counters.forEach(function (c) { box.appendChild(buildCounter(c)); });
+  }
+  CHIPS.forEach(function (name) {
+    var b = el("button", { type: "button", class: "chip", text: name });
+    b.addEventListener("click", function () { $("counter-name").value = name; $("counter-name").focus(); });
+    $("chips").appendChild(b);
+  });
+  $("counter-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var nameInput = $("counter-name"), name = nameInput.value.trim();
+    var t = parseInt($("counter-target").value, 10);
+    if (!name) { toast("Donne un nom à ton compteur."); nameInput.focus(); return; }
+    if (!t || t < 1) t = 100;
+    state.counters.push({ id: uid("k-"), name: name.slice(0, 60), value: 0, target: Math.min(t, 9999) });
+    nameInput.value = "";
+    save(); renderCounters();
+  });
+
+  /* ---------- guides + matériel ---------- */
+  CONFIG.guides.forEach(function (g) {
+    var title = g.href ? el("a", { href: g.href, text: g.title }) : el("span", { text: g.title });
+    var left = el("div", {}, [el("h3", {}, [title]), el("p", { text: g.text })]);
+    var right = g.href ? el("span", { "aria-hidden": "true", text: "" }) : el("span", { class: "soon", text: "Bientôt" });
+    $("guides").appendChild(el("div", { class: "guide" }, [left, right]));
+  });
+  if (CONFIG.affiliates.length) {
+    $("gear-block").hidden = false;
+    CONFIG.affiliates.forEach(function (a) {
+      $("gear").appendChild(el("a", { class: "gear-item", href: a.href, target: "_blank", rel: "sponsored noopener noreferrer" }, [
+        el("strong", { text: a.title }), el("span", { text: a.text })
+      ]));
+    });
+  }
+
+  /* ---------- partage ---------- */
+  $("share").addEventListener("click", function () {
+    var url = location.href;
+    var p;
+    try {
+      if (navigator.share) p = navigator.share({ title: document.title, url: url });
+      else p = navigator.clipboard.writeText(url).then(function () { toast("Lien copié"); });
+    } catch (e) { toast("Copie le lien depuis la barre d’adresse."); return; }
+    if (p && p.catch) p.catch(function () { /* partage annulé */ });
+  });
+
+  renderJournal();
+  renderTasks();
+  renderCounters();
+})();
+</script>
+</body>
+</html>

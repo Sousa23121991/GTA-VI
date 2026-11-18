@@ -22,19 +22,22 @@ Ne colle **jamais** le jeton ni un mot de passe dans le chat ou dans le dépôt.
 1. **Mes apps → Créer une app**.
 2. Nom : `Compagnon GTA VI Publication`. Email de contact : le tien.
 3. Cas d'utilisation : **« Gérer les messages et le contenu sur Instagram »** (Instagram API).
+   Si ce choix n'apparaît pas : prends **« Autre »**, puis type **Entreprise**, et ajoute le produit **Instagram** ensuite.
 4. Si on te le demande, type d'app : **Entreprise**. Ne relie aucun portefeuille business.
 5. Crée l'app. Laisse-la en **mode Développement** : c'est suffisant pour publier sur ton propre compte,
    sans validation de Meta.
 
 ## Étape 3 : relier @compagnongtavi et générer le jeton
 
-1. Dans le tableau de bord de l'app : **Instagram → Configuration de l'API avec connexion Instagram**.
-2. Section **« Générer des jetons d'accès »** → **Ajouter un compte** → connecte-toi à **@compagnongtavi**
+1. **Rôles de l'app → Rôles → Ajouter des personnes → Testeur Instagram** : entre `compagnongtavi`.
+   Puis dans l'appli Instagram : Paramètres → Applications et sites web → **Invitations de testeur** → Accepter.
+   (Étape souvent oubliée : sans elle, le jeton ne se génère pas.)
+2. Dans le tableau de bord de l'app : **Instagram → Configuration de l'API avec connexion Instagram**
+   (pas la version « avec connexion Facebook »).
+3. Section **« Générer des jetons d'accès »** → **Ajouter un compte** → connecte-toi à **@compagnongtavi**
    et accepte les autorisations.
-   - Si Meta indique que le compte doit être testeur : dans l'appli Instagram, va dans
-     Paramètres → Applications et sites web → **Invitations de testeur** et accepte, puis recommence.
-3. Vérifie que les autorisations incluent **`instagram_business_basic`** et **`instagram_business_content_publish`**.
-4. Clique **Générer un jeton** et copie-le **directement** à l'étape 5 (pas dans le chat).
+4. Vérifie que les autorisations incluent **`instagram_business_basic`** et **`instagram_business_content_publish`**.
+5. Clique **Générer un jeton** et copie-le **directement** à l'étape 5 (pas dans le chat).
 
 Le jeton dure **60 jours**. Mets un rappel à 50 jours pour en générer un nouveau de la même façon.
 

@@ -9,6 +9,7 @@ Ce fichier guide la publication quotidienne (humaine ou automatique).
    X/Threads (2-3 posts), Instagram (carrousel + légende + hashtags), TikTok/Reels/Shorts (script 30 s), Story.
 3. **Le carrousel Instagram en images** : écrire `reseaux/carrousels/AAAA-MM-JJ.json` puis lancer
    `node reseaux/outils/carrousel.js reseaux/carrousels/AAAA-MM-JJ.json` (images dans `reseaux/images/`).
+   Le JSON contient aussi `caption` : la légende Instagram complète (2200 caractères max, hashtags inclus).
 4. **La mise à jour du site publié** (l'artifact) avec le nouveau `site/index.html`.
 
 ## Règles

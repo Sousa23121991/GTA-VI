@@ -1,8 +1,29 @@
-{ "date": "2026-11-18", "kicker": "GTA VI SORT DEMAIN", "title": "5 choses à faire ce soir", "cta": "Glisse pour la checklist →",
+{
+  "date": "2026-11-18",
+  "kicker": "GTA VI SORT DEMAIN",
+  "title": "5 choses à faire ce soir",
+  "cta": "Glisse pour la checklist →",
   "slides": [
-    { "title": "Préchargement terminé ?", "text": "Ouvert depuis le 10 novembre sur PS5 et Xbox Series X|S. Vérifie ta bibliothèque." },
-    { "title": "212 Go libres minimum", "text": "Garde une marge pour le patch du jour J. SSD M.2 sur PS5, carte d’extension sur Xbox." },
-    { "title": "Console et manettes à jour", "text": "Fais les mises à jour système ce soir, pas au moment de lancer le jeu." },
-    { "title": "Mode repos connecté", "text": "Le patch du jour J s’installe tout seul pendant la nuit." },
-    { "title": "Manettes chargées, notifs coupées", "text": "Les premières heures posent l’histoire. Ne te fais pas déranger." }
-  ] }
+    {
+      "title": "Préchargement terminé ?",
+      "text": "Ouvert depuis le 10 novembre sur PS5 et Xbox Series X|S. Vérifie ta bibliothèque."
+    },
+    {
+      "title": "212 Go libres minimum",
+      "text": "Garde une marge pour le patch du jour J. SSD M.2 sur PS5, carte d’extension sur Xbox."
+    },
+    {
+      "title": "Console et manettes à jour",
+      "text": "Fais les mises à jour système ce soir, pas au moment de lancer le jeu."
+    },
+    {
+      "title": "Mode repos connecté",
+      "text": "Le patch du jour J s’installe tout seul pendant la nuit."
+    },
+    {
+      "title": "Manettes chargées, notifs coupées",
+      "text": "Les premières heures posent l’histoire. Ne te fais pas déranger."
+    }
+  ],
+  "caption": "GTA VI arrive demain sur PS5 et Xbox Series X|S 🌴\nPour lancer la partie sans attendre une mise à jour de 20 minutes, fais ces 5 vérifications ce soir.\nEnregistre ce post pour ne rien oublier 📌\nChecklist interactive gratuite : lien en bio.\n\n#GTA6 #GTAVI #ViceCity #Leonida #PS5 #XboxSeriesX #Gaming #JeuxVideo #Rockstar"
+}

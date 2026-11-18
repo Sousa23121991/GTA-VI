@@ -27,9 +27,10 @@ const files = fs.readdirSync(path.join(root, 'images'))
   .sort((a, b) => parseInt(a.split('-').pop()) - parseInt(b.split('-').pop()));
 
 const token = process.env.IG_ACCESS_TOKEN;
-const base = (process.env.IMAGE_BASE_URL || '').replace(/\/$/, '');
+const cfg = JSON.parse(fs.readFileSync(path.join(root, 'instagram.json'), 'utf8'));
+const base = (process.env.IMAGE_BASE_URL || cfg.imageBaseUrl || '').replace(/\/$/, '');
 const API = `https://${process.env.IG_API_HOST || 'graph.facebook.com'}/${process.env.IG_API_VERSION || 'v21.0'}`;
-const userId = process.env.IG_USER_ID;
+const userId = process.env.IG_USER_ID || cfg.userId;
 
 const problems = [];
 if (files.length < 2 || files.length > 10) problems.push(`Il faut 2 à 10 images, trouvé ${files.length}.`);
@@ -68,7 +69,9 @@ async function waitReady(id) {
 
 (async () => {
   for (const f of files) {
-    const r = await fetch(`${base}/${f}`, { method: 'HEAD' });
+    let r;
+    try { r = await fetch(`${base}/${f}`, { method: 'HEAD' }); }
+    catch (e) { console.warn(`(Impossible de vérifier ${f} depuis cette session : réseau. Instagram le vérifiera.)`); break; }
     if (!r.ok) throw new Error(`Image non accessible publiquement (${r.status}) : ${base}/${f}`);
   }
   const me = await api('GET', `/${userId}`, { fields: 'username' });

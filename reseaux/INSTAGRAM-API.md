@@ -60,9 +60,8 @@ Claude Code → menu de l'environnement cloud (barre de titre) → **Edit** :
 2. **Variables d'environnement** :
    ```
    IG_ACCESS_TOKEN=<jeton de l'étape 3>
-   IG_USER_ID=<identifiant de l'étape 4>
-   IMAGE_BASE_URL=https://sousa23121991.github.io/GTA-VI/reseaux/images
    ```
+   L'identifiant du compte et l'adresse des images ne sont pas secrets : ils sont dans `reseaux/instagram.json`.
 3. Enregistre. Les nouvelles sessions (dont la tâche de chaque matin) en profitent.
 
 ## Étape 7 : test

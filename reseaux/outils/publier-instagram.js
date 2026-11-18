@@ -18,7 +18,7 @@ const path = require('path');
 
 const date = process.argv[2];
 const publish = process.argv.includes('--publier');
-if (!/^\d{4}-\d{2}-\d{2}$/.test(date || '')) { console.error('Donne une date AAAA-MM-JJ.'); process.exit(1); }
+if (!/^[a-z0-9-]+$/.test(date || '')) { console.error('Donne une date AAAA-MM-JJ.'); process.exit(1); }
 
 const root = path.join(__dirname, '..');
 const data = JSON.parse(fs.readFileSync(path.join(root, 'carrousels', date + '.json'), 'utf8'));

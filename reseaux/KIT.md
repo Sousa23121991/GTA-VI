@@ -56,7 +56,7 @@ Checklist de lancement et compteurs de progression gratuits sur notre site.
 Chaîne de fans non officielle, ni affiliée ni approuvée par Rockstar Games ou Take-Two Interactive.
 ```
 
-**Lien du site :** à mettre dans la bio de chaque compte quand le site sera public (voir section 7).
+**Lien du site (bio de chaque compte) :** `https://compagnon-gta-vi.github.io` (redirige vers le site).
 
 ## 4. Images (dossier `reseaux/images/`)
 

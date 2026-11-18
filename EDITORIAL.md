@@ -14,6 +14,11 @@ Ce fichier guide la publication quotidienne (humaine ou automatique).
    (non versionné), envoyé à l'utilisateur qui le publie depuis l'appli en ajoutant un son tendance.
 5. **La mise à jour du site publié** (l'artifact) avec le nouveau `site/index.html`.
 
+## Lien public
+
+Lien court du site : `https://compagnon-gta-vi.github.io` (dépôt `Compagnon-GTA-VI/compagnon-gta-vi.github.io`, simple redirection).
+Dans les posts réseaux, utilise ce lien à la place de [LIEN DU SITE] (sauf Instagram : « lien en bio »).
+
 ## Règles
 
 - **Français, tutoiement**, ton complice et clair. Phrases courtes.

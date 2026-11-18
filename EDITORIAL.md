@@ -7,7 +7,9 @@ Ce fichier guide la publication quotidienne (humaine ou automatique).
 1. **Un article** ajouté en tête du tableau `POSTS` dans `site/index.html`.
 2. **Un fichier `contenu/AAAA-MM-JJ.md`** avec l'article résumé, ses sources et les posts réseaux :
    X/Threads (2-3 posts), Instagram (carrousel + légende + hashtags), TikTok/Reels/Shorts (script 30 s), Story.
-3. **La mise à jour du site publié** (l'artifact) avec le nouveau `site/index.html`.
+3. **Le carrousel Instagram en images** : écrire `reseaux/carrousels/AAAA-MM-JJ.json` puis lancer
+   `node reseaux/outils/carrousel.js reseaux/carrousels/AAAA-MM-JJ.json` (images dans `reseaux/images/`).
+4. **La mise à jour du site publié** (l'artifact) avec le nouveau `site/index.html`.
 
 ## Règles
 

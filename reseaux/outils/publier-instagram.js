@@ -1,14 +1,16 @@
-// Publie le carrousel du jour sur Instagram via l'API officielle (Instagram API avec connexion Instagram).
+// Publie le carrousel du jour sur Instagram via l'API officielle (API Instagram, connexion unifiée Meta).
 //
 // Usage :
 //   node reseaux/outils/publier-instagram.js 2026-11-19            -> vérification seulement (rien n'est publié)
 //   node reseaux/outils/publier-instagram.js 2026-11-19 --publier  -> publie réellement
 //
 // Variables d'environnement :
-//   IG_ACCESS_TOKEN  jeton d'accès Instagram (jamais dans le dépôt ni dans le chat)
+//   IG_ACCESS_TOKEN  jeton d'accès (utilisateur système), jamais dans le dépôt ni dans le chat
+//   IG_USER_ID       identifiant du compte Instagram (Paramètres business → Comptes Instagram)
 //   IMAGE_BASE_URL   adresse publique où sont servies les images de reseaux/images/
 //                    ex. https://sousa23121991.github.io/GTA-VI/reseaux/images
 //   IG_API_VERSION   facultatif, défaut v21.0
+//   IG_API_HOST      facultatif, défaut graph.facebook.com (graph.instagram.com pour l'ancienne connexion Instagram)
 //
 // Le texte du post vient du champ "caption" de reseaux/carrousels/<date>.json.
 const fs = require('fs');
@@ -26,7 +28,8 @@ const files = fs.readdirSync(path.join(root, 'images'))
 
 const token = process.env.IG_ACCESS_TOKEN;
 const base = (process.env.IMAGE_BASE_URL || '').replace(/\/$/, '');
-const API = `https://graph.instagram.com/${process.env.IG_API_VERSION || 'v21.0'}`;
+const API = `https://${process.env.IG_API_HOST || 'graph.facebook.com'}/${process.env.IG_API_VERSION || 'v21.0'}`;
+const userId = process.env.IG_USER_ID;
 
 const problems = [];
 if (files.length < 2 || files.length > 10) problems.push(`Il faut 2 à 10 images, trouvé ${files.length}.`);
@@ -35,6 +38,7 @@ else if (data.caption.length > 2200) problems.push('Légende trop longue (2200 c
 if ((data.caption || '').includes('[LIEN DU SITE]')) problems.push('La légende contient encore [LIEN DU SITE].');
 if (!token) problems.push('IG_ACCESS_TOKEN absent.');
 if (!base) problems.push('IMAGE_BASE_URL absent.');
+if (!userId) problems.push('IG_USER_ID absent.');
 
 console.log(`Carrousel ${date} : ${files.length} images`);
 files.forEach(f => console.log('  ' + (base ? base + '/' : '') + f));
@@ -67,7 +71,8 @@ async function waitReady(id) {
     const r = await fetch(`${base}/${f}`, { method: 'HEAD' });
     if (!r.ok) throw new Error(`Image non accessible publiquement (${r.status}) : ${base}/${f}`);
   }
-  const me = await api('GET', '/me', { fields: 'user_id,username' });
+  const me = await api('GET', `/${userId}`, { fields: 'username' });
+  me.user_id = userId;
   console.log(`Compte : @${me.username}`);
   if (!publish) { console.log('\nVérification OK. Rien publié. Ajoute --publier pour publier.'); return; }
 

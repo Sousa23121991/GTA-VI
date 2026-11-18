@@ -1,88 +1,81 @@
 # Publier automatiquement sur Instagram (@compagnongtavi)
 
-On utilise l'**API Instagram officielle avec connexion Instagram**. Elle ne demande **pas de page Facebook**.
-Il faut un compte développeur Meta (gratuit) et environ 20 minutes.
+Méthode actuelle de Meta pour les nouvelles apps : **API Instagram avec connexion unifiée** (« Unified login »),
+avec un **jeton d'utilisateur système** qui **n'expire pas**.
 
 Ne colle **jamais** le jeton ni un mot de passe dans le chat ou dans le dépôt.
 
 ---
 
-## Étape 0 : prérequis (sur l'appli Instagram)
+## Étape 0 : prérequis (appli Instagram)
 
-- [ ] Nouveau mot de passe fort + double authentification activée
-- [ ] Compte passé en **professionnel → Créateur** (Paramètres → Type de compte et outils)
+- [ ] Mot de passe fort + double authentification
+- [ ] Compte **professionnel → Créateur**, et public
 
-## Étape 1 : compte développeur Meta
+## Étape 1 : app Meta (fait)
 
-1. Va sur **developers.facebook.com** et connecte-toi avec un compte Facebook (le tien suffit, il ne sera pas lié au compte Instagram).
-2. Clique **Commencer** et termine l'inscription développeur (vérification par email ou téléphone).
+developers.facebook.com → Mes apps → app créée avec le cas d'utilisation Instagram.
 
-## Étape 2 : créer l'app
+## Étape 2 : portefeuille business (fait)
 
-1. **Mes apps → Créer une app**.
-2. Nom : `Compagnon GTA VI Publication`. Email de contact : le tien.
-3. Cas d'utilisation : **« Gérer les messages et le contenu sur Instagram »** (Instagram API).
-   Si ce choix n'apparaît pas : prends **« Autre »**, puis type **Entreprise**, et ajoute le produit **Instagram** ensuite.
-4. Si on te le demande, type d'app : **Entreprise**. Ne relie aucun portefeuille business.
-5. Crée l'app. Laisse-la en **mode Développement** : c'est suffisant pour publier sur ton propre compte,
-   sans validation de Meta.
+Portefeuille « Compagnon GTA VI » associé à l'app (obligatoire pour la connexion unifiée). Gratuit, aucune
+vérification d'entreprise nécessaire pour publier sur ton propre compte.
 
-## Étape 3 : relier @compagnongtavi et générer le jeton
+## Étape 3 : créer la configuration et le jeton
 
-1. **Rôles de l'app → Rôles → Ajouter des personnes → Testeur Instagram** : entre `compagnongtavi`.
-   Puis dans l'appli Instagram : Paramètres → Applications et sites web → **Invitations de testeur** → Accepter.
-   (Étape souvent oubliée : sans elle, le jeton ne se génère pas.)
-2. Dans le tableau de bord de l'app : **Instagram → Configuration de l'API avec connexion Instagram**
-   (pas la version « avec connexion Facebook »).
-3. Section **« Générer des jetons d'accès »** → **Ajouter un compte** → connecte-toi à **@compagnongtavi**
-   et accepte les autorisations.
-4. Vérifie que les autorisations incluent **`instagram_business_basic`** et **`instagram_business_content_publish`**.
-5. Clique **Générer un jeton** et copie-le **directement** à l'étape 5 (pas dans le chat).
+Dans l'app : **Cas d'utilisation → Personnaliser → API setup with Unified login**.
 
-Le jeton dure **60 jours**. Mets un rappel à 50 jours pour en générer un nouveau de la même façon.
+1. **1. Configurez votre application → Créer une nouvelle configuration.**
+   - Nom : `Publication`
+   - Type de jeton : **Token d'accès utilisateur système (SUAT)**, expiration **Jamais**
+   - Éléments : **compte Instagram @compagnongtavi** (si Meta demande de l'ajouter au portefeuille, accepte).
+     Compte publicitaire : aucun.
+   - Autorisations : garde au minimum **`instagram_basic`** et **`instagram_content_publish`**.
+     Si tu peux décocher les autres (`ads_*`, `instagram_manage_messages`, `instagram_manage_comments`), décoche-les :
+     moins d'accès = moins de risques.
+2. L'**URL de redirection** n'est pas nécessaire pour nous : laisse vide.
+3. Continue l'assistant jusqu'à **Générer le jeton**. Copie-le directement dans les réglages (étape 5).
+   - Si tu le perds ou s'il fuite : business.facebook.com → **Paramètres → Utilisateurs système** → révoquer et régénérer.
 
-## Étape 4 : rendre les images accessibles publiquement
+## Étape 4 : identifiant du compte Instagram
 
-Instagram télécharge les images depuis une adresse web publique. Aujourd'hui le dépôt GitHub est **privé**,
-donc Instagram ne peut pas les lire.
+business.facebook.com → **Paramètres** → **Comptes → Comptes Instagram** → clique sur @compagnongtavi :
+l'**identifiant** (une suite de chiffres) est affiché. Ce n'est pas un secret.
 
-**Solution conseillée :** rendre le dépôt public et activer **GitHub Pages**. Ça règle aussi le lien en bio, car
-le site devient public en même temps. Le dépôt ne contient que le site, les textes et les images : aucun secret.
+## Étape 5 : images publiques
+
+Le dépôt GitHub est privé : Instagram ne peut pas lire les images.
 
 1. GitHub → dépôt **GTA-VI** → **Settings → General → Danger Zone → Change visibility → Public**.
-2. **Settings → Pages** → Source : *Deploy from a branch* → branche `claude/daily-content-publications-6o3ny8`,
-   dossier `/ (root)` → Save.
+2. **Settings → Pages** → *Deploy from a branch* → `claude/daily-content-publications-6o3ny8`, dossier `/ (root)` → Save.
 3. Après 1 à 2 minutes :
    - site : `https://sousa23121991.github.io/GTA-VI/site/`
    - images : `https://sousa23121991.github.io/GTA-VI/reseaux/images/`
 
-## Étape 5 : donner l'accès à Claude (dans les réglages de l'environnement, pas dans le chat)
+## Étape 6 : donner l'accès à Claude (réglages de l'environnement, pas le chat)
 
-Dans Claude Code : menu de l'environnement cloud (barre de titre de la session) → **Edit**.
+Claude Code → menu de l'environnement cloud (barre de titre) → **Edit** :
 
-1. **Accès réseau** : ajoute **`graph.instagram.com`** dans les domaines autorisés
-   (laisse la case des gestionnaires de paquets cochée).
+1. **Accès réseau** : ajoute **`graph.facebook.com`** aux domaines autorisés (laisse cochés les gestionnaires de paquets).
 2. **Variables d'environnement** :
    ```
-   IG_ACCESS_TOKEN=<le jeton de l'étape 3>
+   IG_ACCESS_TOKEN=<jeton de l'étape 3>
+   IG_USER_ID=<identifiant de l'étape 4>
    IMAGE_BASE_URL=https://sousa23121991.github.io/GTA-VI/reseaux/images
    ```
-3. Enregistre. Les nouvelles sessions (dont la tâche de chaque matin) en profiteront.
+3. Enregistre. Les nouvelles sessions (dont la tâche de chaque matin) en profitent.
 
-## Étape 6 : test
-
-Dans une nouvelle session, demande : « Vérifie la publication Instagram du jour ». Claude lance :
+## Étape 7 : test
 
 ```
 node reseaux/outils/publier-instagram.js AAAA-MM-JJ             # vérifie, ne publie rien
 node reseaux/outils/publier-instagram.js AAAA-MM-JJ --publier   # publie
 ```
 
-**Première semaine :** la tâche du matin prépare et vérifie le post, puis attend ton « ok » pour publier.
-Ensuite, si tout te plaît, on passe en publication automatique.
+Première semaine : la tâche du matin vérifie le post puis attend ton « ok » avant de publier.
 
 ## Limites de l'API
 
-- Carrousels, photos et Reels : oui. **Stories : non** (à poster à la main).
-- Musique Instagram et sondages : non, à faire dans l'appli.
-- Maximum 50 publications par 24 h, largement suffisant.
+- Carrousels, photos et Reels : oui. **Stories : non** (à la main).
+- Musique Instagram et sondages : non, dans l'appli.
+- Maximum 50 publications par 24 h.

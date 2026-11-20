@@ -1,4 +1,4 @@
-# Publier automatiquement sur Instagram (@compagnongtavi)
+# Publier automatiquement sur Instagram (@compagnon_gta_vi)
 
 Méthode actuelle de Meta pour les nouvelles apps : **API Instagram avec connexion unifiée** (« Unified login »),
 avec un **jeton d'utilisateur système** qui **n'expire pas**.
@@ -28,7 +28,7 @@ Dans l'app : **Cas d'utilisation → Personnaliser → API setup with Unified lo
 1. **1. Configurez votre application → Créer une nouvelle configuration.**
    - Nom : `Publication`
    - Type de jeton : **Token d'accès utilisateur système (SUAT)**, expiration **Jamais**
-   - Éléments : **compte Instagram @compagnongtavi** (si Meta demande de l'ajouter au portefeuille, accepte).
+   - Éléments : **compte Instagram @compagnon_gta_vi** (si Meta demande de l'ajouter au portefeuille, accepte).
      Compte publicitaire : aucun.
    - Autorisations : garde au minimum **`instagram_basic`** et **`instagram_content_publish`**.
      Si tu peux décocher les autres (`ads_*`, `instagram_manage_messages`, `instagram_manage_comments`), décoche-les :
@@ -39,7 +39,7 @@ Dans l'app : **Cas d'utilisation → Personnaliser → API setup with Unified lo
 
 ## Étape 4 : identifiant du compte Instagram
 
-business.facebook.com → **Paramètres** → **Comptes → Comptes Instagram** → clique sur @compagnongtavi :
+business.facebook.com → **Paramètres** → **Comptes → Comptes Instagram** → clique sur @compagnon_gta_vi :
 l'**identifiant** (une suite de chiffres) est affiché. Ce n'est pas un secret.
 
 ## Étape 5 : images publiques

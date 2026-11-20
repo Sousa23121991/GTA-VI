@@ -8,7 +8,7 @@ Tout est prêt à copier-coller. Compte environ 30 minutes pour ouvrir les 4 com
 
 **Pseudo (@) :** prends le même sur toutes les plateformes. Essaie dans cet ordre, jusqu'à en trouver un libre partout :
 
-1. `@compagnongtavi`
+1. `@compagnon_gta_vi`
 2. `@compagnon.gtavi` (point accepté sur Instagram et TikTok, pas sur X)
 3. `@compagnon_gta6`
 4. `@gtavi.compagnon`
